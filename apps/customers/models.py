@@ -52,7 +52,7 @@ class Customer(models.Model):
     assigned_to = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_customers')
     source = models.CharField(max_length=100, blank=True)  # How they found us
     tags = models.JSONField(default=list, blank=True)  # Flexible tagging system
-    notes = models.TextField(blank=True)
+    general_notes = models.TextField(blank=True)
     
     # Financial Information
     lifetime_value = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -107,7 +107,7 @@ class CustomerContact(models.Model):
     job_title = models.CharField(max_length=100, blank=True)
     department = models.CharField(max_length=100, blank=True)
     is_primary = models.BooleanField(default=False)
-    notes = models.TextField(blank=True)
+    general_notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

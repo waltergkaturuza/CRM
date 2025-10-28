@@ -9,10 +9,10 @@ import {
   ChartBarIcon,
   CogIcon,
   BellIcon,
-  ChatAltIcon,
+  ChatBubbleLeftRightIcon as ChatAltIcon,
   DocumentTextIcon,
   CalendarIcon,
-} from '@heroicons/react/outline'
+} from '@heroicons/react/24/outline'
 
 interface SidebarProps {
   isOpen: boolean
@@ -87,22 +87,22 @@ function SidebarContent() {
           {navigation.map((item) => {
             const isActive = router.pathname === item.href
             return (
-              <Link key={item.name} href={item.href}>
-                <a
+              <Link 
+                key={item.name} 
+                href={item.href}
+                className={`${
+                  isActive
+                    ? 'bg-primary-100 text-primary-900'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                } group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors duration-200`}
+              >
+                <item.icon
                   className={`${
-                    isActive
-                      ? 'bg-primary-100 text-primary-900'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  } group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors duration-200`}
-                >
-                  <item.icon
-                    className={`${
-                      isActive ? 'text-primary-500' : 'text-gray-400 group-hover:text-gray-500'
-                    } mr-3 flex-shrink-0 h-6 w-6 transition-colors duration-200`}
-                    aria-hidden="true"
-                  />
-                  {item.name}
-                </a>
+                    isActive ? 'text-primary-500' : 'text-gray-400 group-hover:text-gray-500'
+                  } mr-3 flex-shrink-0 h-6 w-6 transition-colors duration-200`}
+                  aria-hidden="true"
+                />
+                {item.name}
               </Link>
             )
           })}

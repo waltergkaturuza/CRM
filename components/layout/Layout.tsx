@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useAuth } from '@/lib/auth'
+import { useAuth } from '../../lib/auth'
 import Sidebar from './Sidebar'
 import Header from './Header'
 

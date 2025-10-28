@@ -1,5 +1,5 @@
 import React from 'react'
-import { MenuIcon, BellIcon, UserCircleIcon } from '@heroicons/react/outline'
+import { Bars3Icon as MenuIcon, BellIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 

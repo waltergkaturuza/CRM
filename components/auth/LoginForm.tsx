@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useAuth } from '@/lib/auth'
+import { useRouter } from 'next/router'
+import { useAuth } from '../../lib/auth'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
 
@@ -12,6 +13,7 @@ interface LoginFormData {
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const { login } = useAuth()
+  const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>()
 
   const onSubmit = async (data: LoginFormData) => {
@@ -19,7 +21,10 @@ export default function LoginForm() {
     try {
       await login(data.email, data.password)
       toast.success('Login successful!')
+      // Redirect to dashboard after successful login
+      router.push('/dashboard')
     } catch (error: any) {
+      // console.error('Login form error:', error)
       toast.error(error.response?.data?.message || 'Login failed')
     } finally {
       setIsLoading(false)
@@ -110,10 +115,11 @@ export default function LoginForm() {
       <div className="text-center">
         <span className="text-sm text-gray-600">
           Don't have an account?{' '}
-          <Link href="/register">
-            <a className="font-medium text-primary-600 hover:text-primary-500">
-              Sign up
-            </a>
+          <Link 
+            href="/register"
+            className="font-medium text-primary-600 hover:text-primary-500"
+          >
+            Sign up
           </Link>
         </span>
       </div>

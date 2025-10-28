@@ -1,17 +1,16 @@
 import Head from 'next/head'
-import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { useAuth } from '@/lib/auth'
-import LoginForm from '@/components/auth/LoginForm'
+import { useAuth } from '../lib/auth'
+import LoginForm from '../components/auth/LoginForm'
 
 export default function Login() {
   const { user, isLoading } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (user && !isLoading) {
-      router.push('/dashboard')
+    if (!isLoading && user) {
+      router.replace('/dashboard')
     }
   }, [user, isLoading, router])
 
@@ -52,20 +51,4 @@ export default function Login() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  // Check if user is already logged in
-  const token = context.req.cookies.token
-  
-  if (token) {
-    return {
-      redirect: {
-        destination: '/dashboard',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {},
-  }
-}
+// Removed getServerSideProps to avoid cookie/localStorage mismatch

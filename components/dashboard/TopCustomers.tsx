@@ -33,10 +33,11 @@ export default function TopCustomers({ customers }: TopCustomersProps) {
     <div className="bg-white shadow rounded-lg p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-medium text-gray-900">Top Customers</h3>
-        <Link href="/customers">
-          <a className="text-sm text-primary-600 hover:text-primary-500">
-            View all
-          </a>
+        <Link 
+          href="/customers"
+          className="text-sm text-primary-600 hover:text-primary-500"
+        >
+          View all
         </Link>
       </div>
       

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { PlusIcon, MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/outline'
-import apiClient from '@/lib/api'
+import apiClient from '../../lib/api'
 import CustomerTable from './CustomerTable'
 import CustomerModal from './CustomerModal'
 import LoadingSpinner from '../common/LoadingSpinner'

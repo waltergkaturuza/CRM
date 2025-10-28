@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import apiClient from '@/lib/api'
+import apiClient from '../../lib/api'
 import StatsCard from './StatsCard'
 import RecentActivity from './RecentActivity'
 import SalesChart from './SalesChart'
@@ -8,13 +8,57 @@ import TopCustomers from './TopCustomers'
 import QuickActions from './QuickActions'
 
 export default function Dashboard() {
-  const { data: dashboardData, isLoading, error } = useQuery(
-    'dashboard',
-    () => apiClient.getDashboardData(),
-    {
-      refetchInterval: 30000, // Refetch every 30 seconds
-    }
-  )
+  // Mock data for now since the API endpoints don't exist yet
+  const mockDashboardData = {
+    stats: {
+      totalCustomers: 1234,
+      totalLeads: 567,
+      totalDeals: 89,
+      totalRevenue: 45678
+    },
+    topCustomers: [
+      { id: 1, name: 'John Doe', company: 'Acme Corp', revenue: 25000, status: 'active' },
+      { id: 2, name: 'Jane Smith', company: 'Tech Solutions', revenue: 18000, status: 'active' },
+      { id: 3, name: 'Bob Johnson', company: 'Global Inc', revenue: 32000, status: 'prospect' },
+    ],
+    salesChart: [
+      { month: 'Jan', sales: 12000 },
+      { month: 'Feb', sales: 15000 },
+      { month: 'Mar', sales: 18000 },
+      { month: 'Apr', sales: 22000 },
+      { month: 'May', sales: 25000 },
+      { month: 'Jun', sales: 28000 },
+    ],
+    recentActivity: [
+      { 
+        id: 1, 
+        type: 'customer', 
+        description: 'added a new customer', 
+        timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
+        user: 'Admin User',
+        customer: 'John Doe'
+      },
+      { 
+        id: 2, 
+        type: 'deal', 
+        description: 'closed a deal with', 
+        timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(), // 4 hours ago
+        user: 'Sales Rep',
+        deal: 'Acme Corp'
+      },
+      { 
+        id: 3, 
+        type: 'lead', 
+        description: 'received a new lead from website', 
+        timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), // 6 hours ago
+        user: 'Marketing Team'
+      },
+    ]
+  }
+
+  const isLoading = false
+  const error = null
+  const dashboardData = mockDashboardData
 
   if (isLoading) {
     return (

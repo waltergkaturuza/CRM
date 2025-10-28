@@ -2,9 +2,9 @@ import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { useAuth } from '@/lib/auth'
-import Layout from '@/components/layout/Layout'
-import CustomerList from '@/components/customers/CustomerList'
+import { useAuth } from '../lib/auth'
+import Layout from '../components/layout/Layout'
+import CustomerList from '../components/customers/CustomerList'
 
 export default function CustomersPage() {
   const { user, isLoading } = useAuth()
