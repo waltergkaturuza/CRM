@@ -44,33 +44,35 @@ export default function CustomerModal({ isOpen, onClose, customer }: CustomerMod
     }
   })
 
-  const createMutation = useMutation(
-    (data: Customer) => apiClient.createCustomer(data),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('customers')
+  const createMutation = {
+    mutate: (data: Customer) => {
+      setIsLoading(true)
+      // Mock create - in a real app this would call the API
+      setTimeout(() => {
+        console.log('Mock create customer:', data)
         toast.success('Customer created successfully!')
         onClose()
-      },
-      onError: (error: any) => {
-        toast.error(error.response?.data?.message || 'Failed to create customer')
-      },
-    }
-  )
+        reset()
+        setIsLoading(false)
+      }, 1000)
+    },
+    isLoading: false
+  }
 
-  const updateMutation = useMutation(
-    ({ id, data }: { id: number; data: Customer }) => apiClient.updateCustomer(id, data),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('customers')
+  const updateMutation = {
+    mutate: ({ id, data }: { id: number; data: Customer }) => {
+      setIsLoading(true)
+      // Mock update - in a real app this would call the API
+      setTimeout(() => {
+        console.log('Mock update customer:', id, data)
         toast.success('Customer updated successfully!')
         onClose()
-      },
-      onError: (error: any) => {
-        toast.error(error.response?.data?.message || 'Failed to update customer')
-      },
-    }
-  )
+        reset()
+        setIsLoading(false)
+      }, 1000)
+    },
+    isLoading: false
+  }
 
   useEffect(() => {
     if (customer) {

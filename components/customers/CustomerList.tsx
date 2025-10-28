@@ -14,22 +14,75 @@ export default function CustomerList() {
   
   const queryClient = useQueryClient()
 
-  const { data: customers, isLoading, error } = useQuery(
-    ['customers', searchTerm, filters],
-    () => apiClient.getCustomers({ search: searchTerm, ...filters }),
+  // Mock data for now since the API endpoints don't exist yet
+  const mockCustomers = [
     {
-      keepPreviousData: true,
+      id: 1,
+      name: 'John Doe',
+      email: 'john.doe@acmecorp.com',
+      company: 'Acme Corp',
+      phone: '+1 (555) 123-4567',
+      status: 'active',
+      created_at: '2024-01-15T10:30:00Z',
+      last_contact: '2024-10-20T14:22:00Z',
+      total_value: 25000
+    },
+    {
+      id: 2,
+      name: 'Jane Smith',
+      email: 'jane.smith@techsolutions.com',
+      company: 'Tech Solutions',
+      phone: '+1 (555) 987-6543',
+      status: 'active',
+      created_at: '2024-02-10T09:15:00Z',
+      last_contact: '2024-10-18T11:45:00Z',
+      total_value: 18000
+    },
+    {
+      id: 3,
+      name: 'Bob Johnson',
+      email: 'bob.johnson@globalinc.com',
+      company: 'Global Inc',
+      phone: '+1 (555) 456-7890',
+      status: 'prospect',
+      created_at: '2024-03-05T16:20:00Z',
+      last_contact: '2024-10-15T13:30:00Z',
+      total_value: 32000
+    },
+    {
+      id: 4,
+      name: 'Alice Brown',
+      email: 'alice.brown@startup.io',
+      company: 'Startup.io',
+      phone: '+1 (555) 321-0987',
+      status: 'inactive',
+      created_at: '2024-01-20T08:45:00Z',
+      last_contact: '2024-09-30T10:15:00Z',
+      total_value: 8500
     }
+  ]
+
+  // Filter mock data based on search term
+  const filteredCustomers = mockCustomers.filter(customer => 
+    !searchTerm || 
+    customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    customer.company.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  const deleteCustomerMutation = useMutation(
-    (id: number) => apiClient.deleteCustomer(id),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('customers')
-      },
-    }
-  )
+  const customers = filteredCustomers
+  const isLoading = false
+  const error = null
+
+  const deleteCustomerMutation = {
+    mutate: (id: number) => {
+      // Mock delete - in a real app this would call the API
+      console.log('Mock delete customer:', id)
+      // For now, just show a success message
+      // In the future, this will call apiClient.deleteCustomer(id)
+    },
+    isLoading: false
+  }
 
   const handleEdit = (customer: any) => {
     setEditingCustomer(customer)
