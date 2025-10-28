@@ -41,8 +41,10 @@ export default function Layout({ children }: LayoutProps) {
         {/* Page content */}
         <main className="flex-1 relative overflow-y-auto focus:outline-none">
           <div className="py-6">
-            <div className={`max-w-7xl mx-auto px-4 sm:px-6 md:px-8 transition-all duration-300 ${
-              sidebarOpen ? 'md:ml-0' : 'md:ml-0'
+            <div className={`transition-all duration-300 ${
+              sidebarOpen 
+                ? 'max-w-7xl mx-auto px-4 sm:px-6 md:px-8' 
+                : 'max-w-none px-4 sm:px-6 md:px-8 w-full'
             }`}>
               {children}
             </div>
