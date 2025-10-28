@@ -10,7 +10,7 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false) // Closed by default
   const { user, logout } = useAuth()
   const router = useRouter()
 
@@ -22,21 +22,28 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       {/* Sidebar */}
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Sidebar 
+        isOpen={sidebarOpen} 
+        onClose={() => setSidebarOpen(false)}
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+      />
       
       {/* Main content */}
-      <div className="flex flex-col w-0 flex-1 overflow-hidden">
+      <div className="flex flex-col flex-1 overflow-hidden">
         {/* Header */}
         <Header 
-          onMenuClick={() => setSidebarOpen(true)}
+          onMenuClick={() => setSidebarOpen(!sidebarOpen)}
           user={user}
           onLogout={handleLogout}
+          sidebarOpen={sidebarOpen}
         />
         
         {/* Page content */}
         <main className="flex-1 relative overflow-y-auto focus:outline-none">
           <div className="py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div className={`max-w-7xl mx-auto px-4 sm:px-6 md:px-8 transition-all duration-300 ${
+              sidebarOpen ? 'md:ml-0' : 'md:ml-0'
+            }`}>
               {children}
             </div>
           </div>

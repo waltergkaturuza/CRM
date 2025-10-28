@@ -18,17 +18,30 @@ interface HeaderProps {
   onMenuClick: () => void
   user: User | null
   onLogout: () => void
+  sidebarOpen: boolean
 }
 
-export default function Header({ onMenuClick, user, onLogout }: HeaderProps) {
+export default function Header({ onMenuClick, user, onLogout, sidebarOpen }: HeaderProps) {
   return (
     <div className="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
+      {/* Mobile menu button */}
       <button
         type="button"
         className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 md:hidden"
         onClick={onMenuClick}
       >
         <span className="sr-only">Open sidebar</span>
+        <MenuIcon className="h-6 w-6" aria-hidden="true" />
+      </button>
+
+      {/* Desktop menu button */}
+      <button
+        type="button"
+        className="hidden md:flex px-4 border-r border-gray-200 text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 items-center"
+        onClick={onMenuClick}
+        title={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+      >
+        <span className="sr-only">{sidebarOpen ? "Collapse" : "Expand"} sidebar</span>
         <MenuIcon className="h-6 w-6" aria-hidden="true" />
       </button>
       
